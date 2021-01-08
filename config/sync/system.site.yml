@@ -1,0 +1,14 @@
+uuid: d2ddce24-3b75-40b8-b094-b19af28a27cd
+name: SalsaFormAPi
+mail: bevan.wishart@gmail.com
+slogan: ''
+page:
+  403: ''
+  404: ''
+  front: /node
+admin_compact_mode: false
+weight_select_max: 100
+langcode: en
+default_langcode: en
+_core:
+  default_config_hash: yTxtFqBHnEWxQswuWvkjE8mKw2t8oKuCL1q8KnfHuGE
