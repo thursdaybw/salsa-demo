@@ -22,9 +22,21 @@ class ApiForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
 
-    $form['message'] = [
-      '#type' => 'textarea',
-      '#title' => $this->t('Message'),
+    $form['first_name'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('First name'),
+      '#required' => TRUE,
+    ];
+
+    $form['last_name'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Last name'),
+      '#required' => TRUE,
+    ];
+
+    $form['email'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Email'),
       '#required' => TRUE,
     ];
 
