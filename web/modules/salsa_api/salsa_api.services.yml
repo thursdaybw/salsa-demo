@@ -1,0 +1,4 @@
+services:
+  salsa_api.api_client:
+    class: Drupal\salsa_api\ApiClient
+    arguments: ['@http_client', '@config.factory']

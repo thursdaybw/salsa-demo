@@ -28,11 +28,18 @@ class SettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['example'] = [
+
+    // For these purposes, i'm not adding the api key to these settings/config.
+    // I could, but requires extra work. For now store the API key in the
+    // settings.php and assume that's written to by deploy systems.. poor man's
+    // key file.
+
+    $form['url'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Example'),
-      '#default_value' => $this->config('salsa_api_form.settings')->get('example'),
+      '#title' => $this->t('API URL'),
+      '#default_value' => $this->config('salsa_api_form.settings')->get('url'),
     ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -40,10 +47,7 @@ class SettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    if ($form_state->getValue('example') != 'example') {
-      $form_state->setErrorByName('example', $this->t('The value is not correct.'));
-    }
-    parent::validateForm($form, $form_state);
+    // No validation for this example.
   }
 
   /**
@@ -51,7 +55,7 @@ class SettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->config('salsa_api_form.settings')
-      ->set('example', $form_state->getValue('example'))
+      ->set('url', $form_state->getValue('url'))
       ->save();
     parent::submitForm($form, $form_state);
   }

@@ -1,0 +1,6 @@
+name: Salsa API
+type: module
+description: Provides access to our API endpoint.
+package: Custom
+core: 8.x
+core_version_requirement: ^8 || ^9

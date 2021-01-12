@@ -4,11 +4,39 @@ namespace Drupal\salsa_api_form\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\salsa_api\ApiClient;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a SalsaApiForm form.
  */
 class ApiForm extends FormBase {
+
+  /**
+   * @var \Drupal\salsa_api\ApiClient
+   */
+  private $apiClient;
+
+  /**
+   * Class constructor.
+   *
+   * @param \Drupal\salsa_api\ApiClient $apiClient
+   */
+  public function __construct(ApiClient $apiClient) {
+    $this->apiClient = $apiClient;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    // Instantiates this form class.
+    /** @var ApiClient $container */
+    return new static(
+      // Load the service required to construct this class.
+      $container->get('salsa_api.api_client')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -55,16 +83,19 @@ class ApiForm extends FormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    if (mb_strlen($form_state->getValue('message')) < 10) {
-      $form_state->setErrorByName('name', $this->t('Message should be at least 10 characters.'));
-    }
+    // Validation.. skipping for this example.
   }
 
   /**
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->messenger()->addStatus($this->t('The message has been sent.'));
+    $this->messenger()->addStatus($this->t('The details have been saved to the API'));
+
+    /** @var ApiClient $client */
+    $client = \Drupal::service('salsa_api.api_client');
+    $movie = $client->postUserData([]);
+
     $form_state->setRedirect('<front>');
   }
 
