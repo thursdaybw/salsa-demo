@@ -1,0 +1,6 @@
+name: Salsa API Form
+type: module
+description: Provides a form for submission of details which in turn are sent to an API for storage.
+package: Custom
+core: 8.x
+core_version_requirement: ^8 || ^9

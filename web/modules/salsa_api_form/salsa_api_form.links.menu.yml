@@ -1,0 +1,6 @@
+salsa_api_form.settings_form:
+  title: Salsa API Form
+  description: Configure Salsa API Form.
+  parent: system.admin_config_system
+  route_name: salsa_api_form.settings_form
+  weight: 10
