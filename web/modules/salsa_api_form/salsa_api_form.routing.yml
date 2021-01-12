@@ -1,0 +1,15 @@
+salsa_api_form.api:
+  path: '/salsa-api-form'
+  defaults:
+    _title: 'Salsa API Form'
+    _form: 'Drupal\salsa_api_form\Form\ApiForm'
+  requirements:
+    _permission: 'access content'
+
+salsa_api_form.settings_form:
+  path: '/admin/config/system/salsa-api-form'
+  defaults:
+    _title: 'Salsa API Form settings'
+    _form: 'Drupal\salsa_api_form\Form\SettingsForm'
+  requirements:
+    _permission: 'administer salsa_api_form configuration'
