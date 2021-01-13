@@ -41,3 +41,9 @@ Rather than spend the time required to deal with creating and authenticating aga
 Settings form: [\Drupal\salsa_api_form\Form\SettingsForm](https://github.com/thursdaybw/salsa-demo/blob/e321ec84e131cc65897bc66fd746990dff00832f/web/modules/salsa_api/src/SettingsForm.php#L13)
 
 API Dummy client: [\Drupal\salsa_api\ApiClient](blob/5dc05271e09c208661e2f32b1b69b0991d553c55/web/modules/salsa_api/src/ApiClient.php)
+
+
+# Tests
+
+I have included a very basic functional test as a matter of course.
+It's a very basic browser test that simply test that the form has the firstname field displayed.
