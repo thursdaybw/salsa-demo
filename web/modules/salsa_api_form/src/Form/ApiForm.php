@@ -4,6 +4,7 @@ namespace Drupal\salsa_api_form\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\salsa_api\ApiClient;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**

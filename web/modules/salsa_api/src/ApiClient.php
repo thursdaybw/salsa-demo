@@ -2,11 +2,6 @@
 
 namespace Drupal\salsa_api;
 
-/**
- * @file
- * Defines a dummy api client to talk to a null api endpoint.
- */
-
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\Core\Url;
@@ -48,6 +43,28 @@ class ApiClient {
   }
 
   /**
+   * Dummy method that would, but doesn't request a bearer token.
+   *
+   * For correct bearer token management we should authenticate with the API
+   * here and retrieve a bearer token and store that temporally.
+   * When the bearer token expires, then reauthenticate and retrieve a new
+   * token.
+   * Depending on the scope of the level of access token type in the API, we
+   * may also require a refresh token. Implementation here depends on the
+   * bearer token implementation in the API.
+   *
+   * It's also worth mentioning that all communicate that includes the bearer
+   * token between this application and the API must be sent over HTTPS to
+   * avoid the token being sniffed in transit.
+   *
+   * @return string
+   *   String representation of bearer token.
+   */
+  private function getToken(): string {
+    return "sometoken";
+  }
+
+  /**
    * Get a movie by ID.
    *
    * @param array $data
@@ -58,7 +75,9 @@ class ApiClient {
    */
   public function postUserData(array $data = []) {
 
-    $settings = $this->getApiKey();
+    $token = $this->getToken();
+
+    $api_key = $this->getApiKey();
     $config = $this->configFactory->get('salsa_api_form.settings');
 
     // Get the URL for the API from configuration and append the API key to
@@ -70,15 +89,30 @@ class ApiClient {
     // @codingStandardsIgnoreStart
     $url = Url::fromUri(
       $config->get('url'),
-      [
-        'query' => [
-          'apiKey' => $settings['salsa_api_key'],
-        ],
-      ]
     );
     // @codingStandardsIgnoreEnd
 
-    return "OK";
+    $fields_string = json_encode($data);
+
+    /*
+     * Don't actually send the post, it will fail.
+     *
+     * We would do this:
+     *   $response = $this->client->post($url, [
+     */
+    return $this->post($url->getUri(), [
+      'api_key' => $api_key,
+      'body' => $fields_string,
+      'http_errors' => FALSE,
+      'headers' => [
+        'Content-Type' => 'application/json',
+        $headers = [
+          'Authorization' => 'Bearer ' . $token,
+          'Accept'        => 'application/json',
+        ],
+      ],
+    ]);
+
   }
 
   /**
@@ -98,6 +132,21 @@ class ApiClient {
    */
   protected function getApiKey() {
     return Settings::get('salsa_api_key');
+  }
+
+  /**
+   * Dummy post, call this instead of the one on http_client.
+   *
+   * @param string $uri
+   *   Url to submit to.
+   * @param array $options
+   *   Options for the post request.
+   *
+   * @return \GuzzleHttp\Psr7\Response
+   *   Would return a response, for this demo, i'm just returning a string.
+   */
+  protected function post(string $uri, array $options = []) {
+    return "OK";
   }
 
 }
