@@ -64,6 +64,10 @@ class ApiClient {
     // Get the URL for the API from configuration and append the API key to
     // the query.
     // Just a very sample get (not even a post).
+    //
+    // Ignoring this code as we don't use this $url variable and that generates
+    // an error.
+    // @codingStandardsIgnoreStart
     $url = Url::fromUri(
       $config->get('url'),
       [
@@ -72,6 +76,7 @@ class ApiClient {
         ],
       ]
     );
+    // @codingStandardsIgnoreEnd
 
     return "OK";
   }
