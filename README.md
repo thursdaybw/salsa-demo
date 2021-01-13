@@ -15,6 +15,8 @@ I have created a form that accepts these three fields and on submit sends those 
 A simple form like this is easiest to implement as a custom form, there are modules that can make form creation easier
 but for this usecase they're both overkill and not fit for purpose.
 
+Form implementation: `\Drupal\salsa_api\ApiClient`
+
 ## Stub API Details
 * Only accepts POST requests
 * POST requests need to be authenticated using a bearer token
@@ -29,4 +31,11 @@ A development API endpoint is not available for this scenario, you should presen
 ### Response
 For this demonstration purpose I have created a dummy api client class. It would have been possible to implement a dummy api itself that actually
 accepted the post data, checked the api key etc, however it seemed overkill for this simple demo.
-The demo client exposes a postUserData method which in turn looks up the URL from drupal configuration and then returns "OK".
+
+Additionally I have included a settings form that can in turn store the API url in configuration.
+
+The demo client exposes a postUserData method which in turn looks up the URL from drupal configuration and performs a fake post request. 
+Rather than spend the time required to deal with creating and authenticating against an API that I can't test against, I have added comments and to methods such as `\Drupal\salsa_api\ApiClient::getToken`
+
+Settings form: `\Drupal\salsa_api_form\Form\SettingsForm`
+API Dummy client: `\Drupal\salsa_api\ApiClient`
