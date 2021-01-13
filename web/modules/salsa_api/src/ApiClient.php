@@ -2,22 +2,34 @@
 
 namespace Drupal\salsa_api;
 
+/**
+ * @file
+ * Defines a dummy api client to talk to a null api endpoint.
+ */
+
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\Core\Url;
 use GuzzleHttp\ClientInterface;
 
 /**
- * Client to interact with the OMDb API.
+ * Dummy client. Can use this to simulate calling an API.
+ *
+ * This is a super dummy for this purpose, it does very little except
+ * return OK.
  */
 class ApiClient {
 
   /**
+   * HTTP client.
+   *
    * @var \GuzzleHttp\ClientInterface
    */
   protected $client;
 
   /**
+   * Access to configuration info.
+   *
    * @var \Drupal\Core\Config\ConfigFactoryInterface
    */
   private $configFactory;
@@ -26,7 +38,9 @@ class ApiClient {
    * Constructor.
    *
    * @param \GuzzleHttp\ClientInterface $client
+   *   HTTP client.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   *   Config factory, give access to configuration data.
    */
   public function __construct(ClientInterface $client, ConfigFactoryInterface $configFactory) {
     $this->client = $client;
@@ -36,29 +50,49 @@ class ApiClient {
   /**
    * Get a movie by ID.
    *
-   * @param \Drupal\omdb\string $id
+   * @param array $data
+   *   Some data to post. But we don't in this demo.
    *
-   * @return \stdClass
+   * @return string
+   *   A simple string return for demo purposes, just "OK".
    */
-  public function postUserData($data) {
+  public function postUserData(array $data = []) {
 
-    $settings = $this->getSettings();
+    $settings = $this->getApiKey();
     $config = $this->configFactory->get('salsa_api_form.settings');
 
-    // Yeah, real one would be post, skipping that for expediency in the demo.
-    // For this purpose, just showing we can grab the URL.
-    $url = Url::fromUri($config->get('url'), ['query' => ['apiKey' => $settings['key']]]);
+    // Get the URL for the API from configuration and append the API key to
+    // the query.
+    // Just a very sample get (not even a post).
+    $url = Url::fromUri(
+      $config->get('url'),
+      [
+        'query' => [
+          'apiKey' => $settings['salsa_api_key'],
+        ],
+      ]
+    );
 
     return "OK";
   }
 
   /**
-   * Returns the OMDb settings.
+   * Get the API Key from settings.php.
    *
-   * @return array
+   * This is a simple way to store the api key.
+   * This only works if settings.php is not comitted to git
+   * and also relies on related technologies not exposing settings.php
+   * to access from outside. There are better/other solutions around depending
+   * on the context of the project, where it's hosted.
+   * For example, the key module: https://www.drupal.org/project/key connected
+   * to an external key management solution.
+   *
+   * @return mixed
+   *   Return type depends on the value in the settings.
+   *   It should be a string.
    */
-  protected function getSettings() {
-    return Settings::get('salsa_api');
+  protected function getApiKey() {
+    return Settings::get('salsa_api_key');
   }
 
 }

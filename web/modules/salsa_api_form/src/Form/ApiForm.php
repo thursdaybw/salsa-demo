@@ -4,7 +4,6 @@ namespace Drupal\salsa_api_form\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\salsa_api\ApiClient;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -13,6 +12,10 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class ApiForm extends FormBase {
 
   /**
+   * Our dummy API Client.
+   *
+   * Our form will call this client's postUserData method on submit.
+   *
    * @var \Drupal\salsa_api\ApiClient
    */
   private $apiClient;
@@ -21,6 +24,7 @@ class ApiForm extends FormBase {
    * Class constructor.
    *
    * @param \Drupal\salsa_api\ApiClient $apiClient
+   *   Dummy API client.
    */
   public function __construct(ApiClient $apiClient) {
     $this->apiClient = $apiClient;
@@ -31,7 +35,7 @@ class ApiForm extends FormBase {
    */
   public static function create(ContainerInterface $container) {
     // Instantiates this form class.
-    /** @var ApiClient $container */
+    /** @var Drupal\salsa_api\ApiClient $container */
     return new static(
       // Load the service required to construct this class.
       $container->get('salsa_api.api_client')
@@ -92,9 +96,9 @@ class ApiForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->messenger()->addStatus($this->t('The details have been saved to the API'));
 
-    /** @var ApiClient $client */
-    $client = \Drupal::service('salsa_api.api_client');
-    $movie = $client->postUserData([]);
+    // Call the post request on the api client.
+    // For demo I have no sent the form data, it would be ignored anyway.
+    $this->apiClient->postUserData([]);
 
     $form_state->setRedirect('<front>');
   }

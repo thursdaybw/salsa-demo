@@ -7,6 +7,8 @@ use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Configure Salsa API Form settings for this site.
+ *
+ * Just a basic settings form where the api URL can be stored.
  */
 class SettingsForm extends ConfigFormBase {
 
@@ -33,7 +35,6 @@ class SettingsForm extends ConfigFormBase {
     // I could, but requires extra work. For now store the API key in the
     // settings.php and assume that's written to by deploy systems.. poor man's
     // key file.
-
     $form['url'] = [
       '#type' => 'textfield',
       '#title' => $this->t('API URL'),
