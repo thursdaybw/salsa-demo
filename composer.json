@@ -20,7 +20,8 @@
         "drupal/core-dev": "^9.1",
         "drupal/core-project-message": "^9.1",
         "drupal/core-recommended": "^9.1",
-        "drush/drush": "^10.3"
+        "drush/drush": "^10.3",
+        "phpspec/prophecy-phpunit": "^2.0"
     },
     "conflict": {
         "drupal/drupal": "*"
