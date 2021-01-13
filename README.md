@@ -15,7 +15,7 @@ I have created a form that accepts these three fields and on submit sends those 
 A simple form like this is easiest to implement as a custom form, there are modules that can make form creation easier
 but for this usecase they're both overkill and not fit for purpose.
 
-Form implementation: `\Drupal\salsa_api\ApiClient`
+Form implementation: [\Drupal\salsa_api\ApiClient](blob/main/web/modules/salsa_api_form/src/Form/ApiForm.php)
 
 ## Stub API Details
 * Only accepts POST requests
@@ -35,7 +35,8 @@ accepted the post data, checked the api key etc, however it seemed overkill for 
 Additionally I have included a settings form that can in turn store the API url in configuration.
 
 The demo client exposes a postUserData method which in turn looks up the URL from drupal configuration and performs a fake post request. 
-Rather than spend the time required to deal with creating and authenticating against an API that I can't test against, I have added comments and methods such as `\Drupal\salsa_api\ApiClient::getToken`
+Rather than spend the time required to deal with creating and authenticating against an API that I can't test against, I have added comments and methods such as 
+[\Drupal\salsa_api\ApiClient::getToken](blob/5dc05271e09c208661e2f32b1b69b0991d553c55/web/modules/salsa_api/src/ApiClient.php#L63)
 
-Settings form: `\Drupal\salsa_api_form\Form\SettingsForm`
-API Dummy client: `\Drupal\salsa_api\ApiClient`
+Settings form: [\Drupal\salsa_api_form\Form\SettingsForm](https://github.com/thursdaybw/salsa-demo/blob/e321ec84e131cc65897bc66fd746990dff00832f/web/modules/salsa_api/src/SettingsForm.php#L13)
+API Dummy client: [\Drupal\salsa_api\ApiClient](blob/5dc05271e09c208661e2f32b1b69b0991d553c55/web/modules/salsa_api/src/ApiClient.php)
