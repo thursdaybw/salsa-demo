@@ -35,7 +35,7 @@ accepted the post data, checked the api key etc, however it seemed overkill for 
 Additionally I have included a settings form that can in turn store the API url in configuration.
 
 The demo client exposes a postUserData method which in turn looks up the URL from drupal configuration and performs a fake post request. 
-Rather than spend the time required to deal with creating and authenticating against an API that I can't test against, I have added comments and to methods such as `\Drupal\salsa_api\ApiClient::getToken`
+Rather than spend the time required to deal with creating and authenticating against an API that I can't test against, I have added comments and methods such as `\Drupal\salsa_api\ApiClient::getToken`
 
 Settings form: `\Drupal\salsa_api_form\Form\SettingsForm`
 API Dummy client: `\Drupal\salsa_api\ApiClient`
