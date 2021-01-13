@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\salsa_api_form\Form;
+namespace Drupal\salsa_api;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
